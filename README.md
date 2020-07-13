@@ -15,4 +15,5 @@ It is also continually improving with quarterly updates to the underlying text d
 
 This repository hosts the code for the web application.
 
-The code for building the backend text index is available at [https://github.com/iross/km_indexer]{https://github.com/iross/km_indexer}.
+
+The code for building the backend PubMed text index is available at [https://github.com/iross/km_indexer]{https://github.com/iross/km_indexer}.
