@@ -1,6 +1,6 @@
 # KinderMiner Web: A Simple Web Tool for Ranking Pairwise Associations in Biomedical Applications
 
-The web application is freely available for use at [https://www.kinderminer.org]{https://www.kinderminer.org}.
+The web application is freely available for use at [https://www.kinderminer.org](https://www.kinderminer.org).
 
 Many important scientific discoveries require lengthy experimental processes of trial and error and could benefit from intelligent prioritization based on deep domain understanding.
 While exponential growth in the scientific literature makes it difficult to keep current in even a single domain, that same rapid growth in literature also presents an opportunity for automated extraction of knowledge via text mining.
@@ -16,4 +16,4 @@ It is also continually improving with quarterly updates to the underlying text d
 This repository hosts the code for the web application.
 
 
-The code for building the backend PubMed text index is available at [https://github.com/iross/km_indexer]{https://github.com/iross/km_indexer}.
+The code for building the backend PubMed text index is available at [https://github.com/iross/km_indexer](https://github.com/iross/km_indexer).
