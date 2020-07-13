@@ -1,2 +1,18 @@
-# kinderminer_webapp
-Code for the KinderMiner web application
+# KinderMiner Web: A Simple Web Tool for Ranking Pairwise Associations in Biomedical Applications
+
+The web application is freely available for use at [https://www.kinderminer.org]{https://www.kinderminer.org}.
+
+Many important scientific discoveries require lengthy experimental processes of trial and error and could benefit from intelligent prioritization based on deep domain understanding.
+While exponential growth in the scientific literature makes it difficult to keep current in even a single domain, that same rapid growth in literature also presents an opportunity for automated extraction of knowledge via text mining.
+We have developed a web application implementation of the KinderMiner algorithm for proposing ranked associations between a list of target terms and a key phrase.
+Any key phrase and target term list can be used for biomedical inquiry.
+We built the web application around a text database derived from PubMed.
+It is the first publicly available implementation of the algorithm, is fast and easy to use, and includes an interactive analysis tool.
+The KinderMiner web application is a public resource offering scientists a cohesive summary of what is currently known about a particular topic within the literature, and helping them to prioritize experiments around that topic.
+It performs comparably or better to similar state-of-the-art text mining tools, is more flexible, and can be applied to any biomedical topic of interest.
+It is also continually improving with quarterly updates to the underlying text database and through response to suggestions from the community.
+
+
+This repository hosts the code for the web application.
+
+The code for building the backend text index is available at [https://github.com/iross/km_indexer]{https://github.com/iross/km_indexer}.
