@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+{% include 'header_common.html' %}
+    </head>
+
+    <body>
+
+      <nav class="navbar navbar-default">
+	<div class="container">
+	  <a href="/"><img class="navbar-brand" src="/static/km_nav.svg" alt=""></a>
+	  <ul class="nav navbar-nav navbar-right">
+	    <li class="active"><a href="/about">About</a></li>
+{% if curr_user %}
+	    <li><a href="/request_form">Submit Query</a></li>
+	    <li><a href="/results">My Results</a></li>
+	    <li class="btn-danger"><a href="/logout" style="color: white;">Logout</a></li>
+{% else %}
+	    <li><a href="/login">Login</a></li>
+{% endif %}
+	  </ul>
+	</div>
+      </nav>
+
+
+      <div class="container">
+
+        <!-- Left gap -->
+        <div class="col-md-2"></div>
+
+        <!-- Content region -->
+        <div class="col-md-8">
+
+          <h1>About</h1>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">What is KinderMiner&trade;?</h4>
+            </div>
+            <div class="panel-body">
+              KinderMiner&trade; is a simple and fast text mining tool for filtering and ranking a list of target terms by their association with a key phrase. For example, KinderMiner&trade; can be used to rank a list of transcription factors (the target terms) by their association with embryonic stem cells (the key phrase), in order to find what transcription factors are important to the embryonic stem cell state.
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">What is the Morgridge Institute for Research?</h4>
+            </div>
+            <div class="panel-body">
+              The Morgridge Institute for Research is an independent research organization that explores uncharted scientific territory to discover tomorrow’s cures. In affiliation with the University of Wisconsin-Madison, they support researchers who take a fearless approach to advancing human health in emerging fields such as regenerative biology, metabolism, virology and medical engineering. Through public programming, they work to inspire scientific curiosity in everyday life.
+            </div>
+          </div>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">How does KinderMiner&trade; work?</h4>
+            </div>
+            <div class="panel-body">
+              For every target term, KinderMiner&trade; counts (1) the articles (available on PubMed) in which the term occurs with the key phrase of interest, (2) the articles in which it occurs without the key phrase, and (3) the articles in which the key phrase occurs without the term. It then performs a simple statistical calculation with all term counts to filter and rank the terms by their co-occurrence with the key phrase. In this way, co-occurrence is assumed to represent association between any one term and the key phrase.
+            </div>
+          </div>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">How do I cite KinderMiner&trade;?</h4>
+            </div>
+            <div class="panel-body">
+              Kuusisto F, Steill J, Kuang Z, Thomson J, Page D, Stewart R. A Simple Text Mining Approach for Ranking Pairwise Associations in Biomedical Applications. In Proceedings of the AMIA Joint Summits on Translational Science. 2017.
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Right gap -->
+        <div class="col-md-2"></div>
+
+      </div>
+
+
+{% include 'footer.html' %}
+    </body>
+</html>

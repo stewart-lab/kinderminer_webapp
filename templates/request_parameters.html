@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+{% include 'header_common.html' %}
+      <script src="/static/style.css"></script>
+    </head>
+
+    <body>
+
+      <nav class="navbar navbar-default">
+	<div class="container">
+	  <a href="/"><img class="navbar-brand" src="/static/km_nav.svg" alt=""></a>
+	  <ul class="nav navbar-nav navbar-right">
+	    <li><a href="/about">About</a></li>
+	    <li><a href="/request_form">Submit Query</a></li>
+	    <li><a href="/results">My Results</a></li>
+	    <li class="btn-danger"><a href="/logout" style="color: white;">Logout</a></li>
+	  </ul>
+	</div>
+      </nav>
+
+      <div class="container">
+
+	<div class="col-md-2"></div>
+
+	<div class="col-md-8"><h3>KinderMiner Query Parameters</h3></div>
+
+	<div class="col-md-2"></div>
+
+      </div>
+
+
+      <div class="jumbotron">
+      <div class="container">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-8">
+	  <form class="form-horizontal">
+            <fieldset disabled>
+	      <div class="form-group">
+		<label for="queryname" class="col-md-2 control-label">Query Name</label>
+		<div class="col-md-10">
+		  <input type="text" class="form-control" id="queryname" value="{{req.name}}">
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label for="keyphrase" class="col-md-2 control-label">Key Phrase</label>
+		<div class="col-md-10">
+		  <input type="text" class="form-control" id="keyphrase" value="{{req.params['key_phrase']}}">
+		</div>
+		<div class="col-md-offset-2 col-md-10">
+		  {% if req.params['sep_kp'] %}
+                  <input type="checkbox" id="sepkpbox" checked>
+		  {% else %}
+                  <input type="checkbox" id="sepkpbox">
+		  {% endif %}
+                  Allow key phrase match by separate tokens (exact match is default)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label for="targetterms" class="col-md-2 control-label">Target Terms</label>
+		<div class="col-md-10">
+		  <textarea class="form-control" rows="5" id="targetterms">{{req.params['target_terms']}}</textarea>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label for="censoryear" class="col-md-2 control-label">Censor Year</label>
+		<div class="col-md-10">
+		  <input type="text" class="form-control" id="censoryear" value="{{req.params['censor_year']}}">
+		</div>
+	      </div>
+	    </fieldset>
+	  </form>
+        </div>
+
+	<div class="col-md-2"></div>
+      </div>
+      </div>
+
+
+{% include 'footer.html' %}
+    </body>
+</html>

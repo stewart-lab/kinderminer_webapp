@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'header_common.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="/static/results_table.js"></script>
+</head>
+
+<body>
+
+  <script>
+    pVals = {{ p_vals }};
+    requestID = {{ request_id }};
+  </script>
+
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <a href="/"><img class="navbar-brand" src="/static/km_nav.svg" alt=""></a>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/about">About</a></li>
+        <li><a href="/request_form">Submit Query</a></li>
+        <li><a href="/results">My Results</a></li>
+        <li class="btn-danger"><a href="/logout" style="color: white;">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- Slider and p-value graph region -->
+  <div class="jumbotron">
+
+    <!-- Heading section -->
+    <div class="container">
+      <div class="row">
+
+        <!-- left gap -->
+        <div class="col-md-2"></div>
+
+        <!-- heading -->
+        <div class="col-md-8">
+          <center><h2>{{request_name}}</h2></center><br>
+        </div>
+
+        <!-- right gap -->
+        <div class="col-md-2"></div>
+
+      </div>
+    </div>
+
+    <!-- Tool and stats section -->
+    <div class="container">
+      <div class="row">
+
+        <!-- Left-hand gap of slider region -->
+        <div class="col-md-2"></div>
+
+        <!-- Slider container -->
+        <div class="col-md-8">
+          <div class="container">
+            <div class="row">
+
+              <div class="col-md-6">
+
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="plot">
+                        <canvas id="p_value_chart" style="max-width: 100%; height: auto;"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input class="form-control" type="range" min="0" max="1" step="any" id="p_value_slider">
+                    </div>
+                    <div class="col-md-6">
+                      <input class="form-control" type="text" id="slider_val_box">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-6">
+
+                <b>Key Phrase</b>: {{key_phrase}}
+                <br>
+                <b>Terms within filter threshold:</b>
+                <span id="meet_thresh"></span>
+                <br>
+                <b>Target Terms:</b> {{"{:,}".format(results|length)}}
+                <br>
+                <b>Keyphrase Count:</b> {{"{:,}".format(results[0].keyphrase_count)}}
+                <br>
+                <b>Total Article Count:</b> {{"{:,}".format(results[0].db_count)}}
+                <br>
+                <b>Target Terms with count 0:</b> {{"{:,}".format(no_hit_count)}}
+                <br>
+
+                <a class="btn btn-info" id="btn_download_all">Download All</a>
+                <a class="btn btn-info" id="btn_download_filtered">Download Filtered</a>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Right-hand gap in slider region-->
+        <div class="col-md-2"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Table region -->
+  <div class="container">
+    <div class="row">
+
+
+      <!-- Left-hand gap by table -->
+      <div class="col-md-2"></div>
+
+      <!-- Table contents -->
+      <div class="col-md-8">
+
+        <table class="table" id="results_table">
+
+        <tr>
+        <th>Target Term</th>
+        <th>Relevance (T&K / T)</th>
+        <th>Target and Keyphrase Count</th>
+        <th>Target Count</th>
+        <th>FET p-value</th>
+        </tr>
+
+{% for res in results %}
+        <tr>
+        <td>{{res.target}}</td>
+        <td>{{"{:.5g}".format(res.target_and_keyphrase_ratio)}}</td>
+        <td>{{"{:,}".format(res.target_and_keyphrase_count)}}</td>
+        <td>{{"{:,}".format(res.target_count)}}</td>
+        <td class="p_val_cell">{{"{:.5g}".format(res.p_value)}}</td>
+        </tr>
+{% endfor %}
+        </table>
+
+      </div>
+
+      <!-- Right-hand gap by table -->
+      <div class="col-md-2"></div>
+
+      <a id="download_link" href="" hidden></a> <!-- used for the download dialog when clicking to download results -->
+
+    </div>
+  </div>
+
+  {% include 'footer.html' %}
+</body>
+
+</html>

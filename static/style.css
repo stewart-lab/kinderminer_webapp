@@ -1,0 +1,23 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    background-color: #ffffff;
+    width: 100%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.topnav {
+    background-color: #f8f7f7;
+}
+fieldset[disabled] .form-control{
+    background: white;
+}
+.no-top-margin {
+    margin-top: 0;
+}
+.justified {
+    text-align: justify;
+}
+.med-top-margin {
+    margin-top: 2em;
+}

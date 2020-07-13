@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+{% include 'header_common.html' %}
+      <script src="/static/login.js"></script>
+    </head>
+
+    <body>
+
+      <nav class="navbar navbar-default">
+	<div class="container">
+	  <a href="/"><img class="navbar-brand" src="/static/km_nav.svg" alt=""></a>
+	  <ul class="nav navbar-nav navbar-right">
+	    <li><a href="/about">About</a></li>
+	    <li class="active"><a href="/login">Login</a></li>
+	  </ul>
+	</div>
+      </nav>
+
+      <!-- login form container -->
+      <div class="container">
+        <!-- login form row -->
+        <div class="row">
+
+          <div class="col-md-2"></div> <!-- left offset-->
+
+          <!-- about box -->
+          <div class="col-md-4">
+            <div class="well med-top-margin">
+              <h1 class="no-top-margin">KinderMiner&trade;</h1>
+              <p class="justified">
+                KinderMiner&trade; is a simple and fast text mining tool for filtering and ranking a list of target terms by their association with a key phrase. For example, KinderMiner&trade; can be used to rank a list of transcription factors (the target terms) by their association with embryonic stem cells (the key phrase), in order to find what transcription factors are important to the embryonic stem cell state.
+              </p>
+            </div>
+          </div>
+          <!-- END about box -->
+
+
+          <!-- login form -->
+          <div class="col-md-4">
+
+            <center>
+            <form action="/login" method="POST">
+              <h1>Login</h1>
+              {{message}}
+
+              <div class="form-group">
+                <label class="sr-only">Email</label>
+                <input type="text" class="form-control" value="" placeholder="email" name="email">
+              </div>
+
+              <div class="form-group">
+                <label class="sr-only">Password</label>
+                <input type="password" class="form-control" value="" placeholder="password" name="password">
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Login</button>
+              </div>
+
+              <div class="form-group">
+                <a href="/forgot_password">Forgot your password?</a>
+              </div>
+
+              <div class="form-group">
+                Not registered? <a href="/signup">Create an account</a>
+              </div>
+
+              <div class="form-group">
+                <a href="#" onclick="login_guest()">Login as Guest</a>
+              </div>
+
+            </form>
+            </center>
+
+          </div>
+          <!-- END login form -->
+
+          <div class="col-md-2"></div> <!-- right offset-->
+
+        </div>
+        <!-- END login form row -->
+      </div>
+      <!-- END login form container -->
+
+{% include 'footer.html' %}
+    </body>
+</html>

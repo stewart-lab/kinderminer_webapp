@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+{% include 'header_common.html' %}
+    </head>
+
+    <body>
+
+      <nav class="navbar navbar-default">
+	<div class="container">
+	  <a href="/"><img class="navbar-brand" src="/static/km_nav.svg" alt=""></a>
+	  <ul class="nav navbar-nav navbar-right">
+	    <li><a href="/about">About</a></li>
+	    <li><a href="/login">Login</a></li>
+	  </ul>
+	</div>
+      </nav>
+
+
+      <div class="container">
+
+        <!-- Left gap -->
+        <div class="col-md-2"></div>
+
+        <!-- Content region -->
+        <div class="col-md-8">
+
+          <h3>Page Not Found</h3>
+	  <blockquote>
+	    <p>
+	      Wise men ne'er sit and wail their loss,<br>
+	      But cheerly seek how to <a href="/login">redress their harms</a>.
+	    </p>
+	    <footer>
+	      William Shakespeare, <cite title="Henrey VI">Henry VI</cite>
+	    </footer>
+	  </blockquote>
+
+        </div>
+
+        <!-- Right gap -->
+        <div class="col-md-2"></div>
+
+      </div>
+
+
+{% include 'footer.html' %}
+    </body>
+</html>

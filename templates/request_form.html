@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+{% include 'header_common.html' %}
+      <script src="/static/request_form.js"></script>
+    </head>
+
+    <body>
+
+      <nav class="navbar navbar-default">
+	<div class="container">
+	  <a href="/"><img class="navbar-brand" src="/static/km_nav.svg" alt=""></a>
+	  <ul class="nav navbar-nav navbar-right">
+	    <li><a href="/about">About</a></li>
+	    <li class="active"><a href="/request_form">Submit Query</a></li>
+	    <li><a href="/results">My Results</a></li>
+	    <li class="btn-danger"><a href="/logout" style="color: white;">Logout</a></li>
+	  </ul>
+	</div>
+      </nav>
+
+      <!-- heading container -->
+      <div class="container">
+
+        <div class="row">
+
+	  <div class="col-md-12"><h1>Submit KinderMiner Query</h1></div>
+
+        </div>
+
+      </div>
+      <!-- END heading container -->
+
+      <!-- form container and row -->
+      <div class="container"><div class="row">
+
+        <!-- form region -->
+        <div class="col-md-8">
+          <div class="well well-sm">
+	    <form class="form-horizontal">
+	      <div class="form-group">
+		<label for="queryname" class="col-md-2 control-label">Query Name</label>
+		<div class="col-md-10">
+		  <input type="text" class="form-control" id="queryname" placeholder="Query Name" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Give your query a display name to help you identify it on your results page.">
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label for="keyphrase" class="col-md-2 control-label">Key Phrase</label>
+		<div class="col-md-10">
+		  <input type="text" class="form-control" id="keyphrase" placeholder="Key Phrase" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Enter the concept of interest here (e.g. embryonic stem cell). The target terms will be ranked and filtered by their association with this.">
+		</div>
+                <div class="col-md-offset-2 col-md-10" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Check this box if you want your keyphrase to be matched by its individual words rather than by an exact match to the whole phrase.">
+                  <input type="checkbox" id="sepkpbox">
+                  Match by all words (not exact phrase)
+                </div>
+	      </div>
+	      <div class="form-group">
+		<label for="targetterms" class="col-md-2 control-label">Target Terms</label>
+		<div class="col-md-10">
+		  <textarea class="form-control" rows="5" id="targetterms" placeholder="Target Terms (one per line)" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Enter your target terms here (one per line). These will be ranked and filtered by their association with the keyphrase you entered. You can also select from our quick fill lists below."></textarea>
+		</div>
+                <div class="col-md-offset-2 col-md-10">
+                  Quick Fill:
+                  <a class="btn btn-default btn-xs" id="fillgenes" role="button">Genes</a>
+                  <a class="btn btn-default btn-xs" id="filltfs" role="button">Transcription Factors</a>
+                  <a class="btn btn-default btn-xs" id="fillligands" role="button">Ligands</a>
+                  <a class="btn btn-default btn-xs" id="fillmirnas" role="button">microRNA</a>
+                  <a class="btn btn-default btn-xs" id="filldrugs" role="button">Drugs &amp; Devices</a>
+                  <a class="btn btn-warning btn-xs" id="clear" role="button" onclick="clearTerms()">Clear</a>
+                </div>
+	      </div>
+	      <div class="form-group">
+		<label for="censoryear" class="col-md-2 control-label">Censor Year</label>
+		<div class="col-md-10">
+		  <select class="form-control" id="censoryear" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="This allows you to censor your search to sometime in the past. The search will only consider articles published during or before the selected year.">
+		    {% for year in range(curr_year, 1899, -1) %}
+                    <option value="{{year}}">{{year}}</option>
+		    {% endfor %}
+                  </select>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+		  <a class="btn btn-primary btn-block" id="submitquery">Submit</a>
+		</div>
+		<div class="col-md-offset-2 col-md-10">
+                  <span id="submitresponse" style="text-align: center;"></span>
+		</div>
+	      </div>
+	    </form>
+          </div>
+        </div>
+        <!-- END form region -->
+
+        <!-- info box region -->
+	<div class="col-md-4">
+
+        <!-- info accordion -->
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                How do I use KinderMiner&trade;?
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <ol>
+                  <li>
+                  Enter a <b>Query Name</b> for this query. This is will be the name of the query as it is listed on your <a href="/results">My Results</a> page.
+                  </li>
+                  <li>
+                  Enter a <b>Key Phrase</b> for the topic you want to rank on. This is the general application you're interested in. For example, if you want to find transcription factors associated with embryonic stem cells, 'embryonic stem cell' (without quotes) would be your Key Phrase.
+                  </li>
+                  <li>
+                  <i>(optional)</i> Check the box under the Key Phrase field if you would like your key phrase to be broken into tokens. KinderMiner&trade; counts articles with an exact match by default, but this option relaxes KinderMiner&trade; to count articles that contain every token in the key phrase.
+                  </li>
+                  <li>
+                  Enter a list of <b>Target Terms</b> (one per line) to rank by their association with the Key Phrase above. For example, you might enter a complete list of transcription factors to be ranked by association with 'embryonic stem cell' or another cell type. <i>Note: Quick fill options are available below the box.</i>
+                  </li>
+                  <li>
+                  <i>(optional)</i> Enter a <b>Censor Year</b> if you would like KinderMiner&trade; to only count articles published through a particular year. <i>Note: We recommend leaving it at the current year by default.</i>
+                  </li>
+		  <li>
+		  Click <b>Submit</b>. That's it! You will now see the query as pending on your <a href="/results">My Results</a> page. When your results are ready to view, you will receive an email notification.
+		  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                How does KinderMiner&trade; work?
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body justified">
+              For every target term, KinderMiner&trade; counts (1) the articles (available on PubMed) in which the term occurs with the key phrase of interest, (2) the articles in which it occurs without the key phrase, and (3) the articles in which the key phrase occurs without the term. It then performs a simple statistical calculation with all term counts to filter and rank the terms by their co-occurrence with the key phrase. In this way, co-occurrence is assumed to represent association between any one term and the key phrase.
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                How long will my query take?
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body justified">
+              Depending on the size of your query and overall demand, it may take several minutes to several hours. Please be patient and we will send you an email when your query is complete and ready to view on your <a href="/results">My Results</a> page.
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingFour">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                How do I cite KinderMiner&trade;?
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+              <div class="panel-body justified">
+              Kuusisto F, Steill J, Kuang Z, Thomson J, Page D, Stewart R. A Simple Text Mining Approach for Ranking Pairwise Associations in Biomedical Applications. <i> In Proceedings of the AMIA Joint Summits on Translational Science.</i> 2017.
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END info accordion -->
+
+        </div>
+        <!-- END info box region -->
+
+
+      </div></div>
+      <!-- END form container and row -->
+
+{% include 'footer.html' %}
+    </body>
+</html>
